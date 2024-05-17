@@ -1,8 +1,10 @@
-const SectionTitle = () => {
+const SectionTitle = ({ subtitle, title }) => {
   return (
-    <div>
-      <p>subheading</p>
-      <h2>title hobe</h2>
+    <div className="space-y-3 max-w-xs text-center mx-auto mb-10">
+      <p className="text-sm text-yellow-400 italic font-medium">
+        --- {subtitle} ---
+      </p>
+      <h2 className="text-3xl font-semibold border-y-2 py-2">{title}</h2>
     </div>
   );
 };
