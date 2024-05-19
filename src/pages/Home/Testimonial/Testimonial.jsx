@@ -9,16 +9,14 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import "./Testimonial.css";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const Testimonial = () => {
+  const axiosSecure = useAxiosSecure();
   const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
-    fetch("reviews.json")
-      .then((res) => res.json())
-      .then((data) => {
-        setReviews(data);
-      });
+    axiosSecure.get("/food/menu/reviews").then((res) => setReviews(res.data));
   }, []);
 
   return (
