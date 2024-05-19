@@ -7,6 +7,7 @@ import useMenuCategoryData from "../../hooks/useMenuCategoryData";
 import FoodCard from "../../components/FoodCard/FoodCard";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
+import { Helmet } from "react-helmet-async";
 
 const Shop = () => {
   const { category } = useParams();
@@ -24,6 +25,10 @@ const Shop = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Bistro Boss | Shop</title>
+      </Helmet>
+
       <PageBanner
         img={shopPageBannerImg}
         title={"our shop"}

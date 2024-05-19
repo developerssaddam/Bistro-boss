@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import PageBanner from "../../Sheard/PageBanner/PageBanner";
 import menuPageBannerImg from "../../assets/menu/banner.jpg";
 import Desserts from "./Desserts/Desserts";
@@ -9,6 +10,10 @@ import TodaysOfferMenu from "./TodayOfferMenu/TodaysOfferMenu";
 const OurMenu = () => {
   return (
     <div>
+      <Helmet>
+        <title>Bistro Boss | Menu</title>
+      </Helmet>
+
       <PageBanner
         img={menuPageBannerImg}
         title={"OUR MENU"}
