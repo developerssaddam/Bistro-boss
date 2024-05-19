@@ -20,7 +20,7 @@ const FoodCategory = () => {
         title={"ORDER ONLINE"}
       />
 
-      <div className="max-w-5xl mx-auto">
+      <div className="food_category max-w-5xl mx-auto">
         <Swiper
           slidesPerView={4}
           spaceBetween={10}

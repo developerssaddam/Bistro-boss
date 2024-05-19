@@ -8,6 +8,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
+import "./Testimonial.css";
 
 const Testimonial = () => {
   const [reviews, setReviews] = useState([]);
@@ -21,7 +22,7 @@ const Testimonial = () => {
   }, []);
 
   return (
-    <div className="max-w-5xl mx-auto mb-14">
+    <div className="testimonial_area max-w-5xl mx-auto mb-14">
       <SectionTitle subtitle={"What Our Clients Say"} title={"TESTIMONIALS"} />
 
       <Swiper navigation={true} modules={[Navigation]} className="mySwiper">

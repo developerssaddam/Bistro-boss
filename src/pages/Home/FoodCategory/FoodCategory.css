@@ -1,10 +1,9 @@
-.swiper-pagination-bullet {
+.food_category .swiper-pagination-bullet {
   background-color: #000;
   opacity: 0.5;
 }
 
-
-.swiper-pagination-bullet-active{
-    background-color: yellow;
-    opacity: 1;
+.food_category .swiper-pagination-bullet-active {
+  background-color: yellow;
+  opacity: 1;
 }

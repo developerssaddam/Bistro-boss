@@ -8,6 +8,20 @@ import FoodCard from "../../components/FoodCard/FoodCard";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
+import "./Shop.css";
+
+// Swiper slider for pagination
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
+import { Pagination } from "swiper/modules";
+
+const pagination = {
+  clickable: true,
+  renderBullet: function (index, className) {
+    return '<span class="' + className + '">' + (index + 1) + "</span>";
+  },
+};
 
 const Shop = () => {
   const { category } = useParams();
@@ -23,6 +37,14 @@ const Shop = () => {
   const drinks = useMenuCategoryData("drinks");
   const offeredFood = useMenuCategoryData("offered");
 
+  // Total page count
+  const saladsPage = [...Array(Math.ceil(salads.length / 6)).keys()];
+  const pizzasPage = [...Array(Math.ceil(pizzas.length / 6)).keys()];
+  const soupsPage = [...Array(Math.ceil(soups.length / 6)).keys()];
+  const dessertsPage = [...Array(Math.ceil(desserts.length / 6)).keys()];
+  const drinksPage = [...Array(Math.ceil(drinks.length / 6)).keys()];
+  const offeredFoodPage = [...Array(Math.ceil(offeredFood.length / 6)).keys()];
+
   return (
     <div>
       <Helmet>
@@ -35,7 +57,7 @@ const Shop = () => {
         subtitle={"Would you like to try a dish?"}
       />
 
-      <div className="tab_area max-w-5xl mx-auto mb-5">
+      <div className="category_tab tab_area max-w-5xl mx-auto mb-5">
         <Tabs defaultIndex={index} onSelect={(index) => setIndex(index)}>
           <TabList>
             <Tab>SALAD</Tab>
@@ -47,63 +69,135 @@ const Shop = () => {
           </TabList>
 
           <TabPanel>
-            <div className="max-w-5xl mx-auto mb-14">
-              <div className="food_container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                {salads.map((item, index) => (
-                  <FoodCard key={index} item={item} />
-                ))}
-              </div>
-            </div>
+            <Swiper
+              pagination={pagination}
+              modules={[Pagination]}
+              className="mySwiper"
+            >
+              {saladsPage.map((index) => (
+                <SwiperSlide key={index}>
+                  <div className="max-w-5xl mx-auto mb-14">
+                    <div className="food_container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                      {salads
+                        .slice(index * 6, (index + 1) * 6)
+                        .map((item, index) => (
+                          <FoodCard key={index} item={item} />
+                        ))}
+                    </div>
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
           </TabPanel>
 
           <TabPanel>
-            <div className="max-w-5xl mx-auto mb-14">
-              <div className="food_container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                {pizzas.map((item, index) => (
-                  <FoodCard key={index} item={item} />
-                ))}
-              </div>
-            </div>
+            <Swiper
+              pagination={pagination}
+              modules={[Pagination]}
+              className="mySwiper"
+            >
+              {pizzasPage.map((index) => (
+                <SwiperSlide key={index}>
+                  <div className="max-w-5xl mx-auto mb-14">
+                    <div className="food_container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                      {pizzas
+                        .slice(index * 6, (index + 1) * 6)
+                        .map((item, index) => (
+                          <FoodCard key={index} item={item} />
+                        ))}
+                    </div>
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
           </TabPanel>
 
           <TabPanel>
-            <div className="max-w-5xl mx-auto mb-14">
-              <div className="food_container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                {soups.map((item, index) => (
-                  <FoodCard key={index} item={item} />
-                ))}
-              </div>
-            </div>
+            <Swiper
+              pagination={pagination}
+              modules={[Pagination]}
+              className="mySwiper"
+            >
+              {soupsPage.map((index) => (
+                <SwiperSlide key={index}>
+                  <div className="max-w-5xl mx-auto mb-14">
+                    <div className="food_container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                      {soups
+                        .slice(index * 6, (index + 1) * 6)
+                        .map((item, index) => (
+                          <FoodCard key={index} item={item} />
+                        ))}
+                    </div>
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
           </TabPanel>
 
           <TabPanel>
-            <div className="max-w-5xl mx-auto mb-14">
-              <div className="food_container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                {desserts.map((item, index) => (
-                  <FoodCard key={index} item={item} />
-                ))}
-              </div>
-            </div>
+            <Swiper
+              pagination={pagination}
+              modules={[Pagination]}
+              className="mySwiper"
+            >
+              {dessertsPage.map((index) => (
+                <SwiperSlide key={index}>
+                  <div className="max-w-5xl mx-auto mb-14">
+                    <div className="food_container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                      {desserts
+                        .slice(index * 6, (index + 1) * 6)
+                        .map((item, index) => (
+                          <FoodCard key={index} item={item} />
+                        ))}
+                    </div>
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
           </TabPanel>
 
           <TabPanel>
-            <div className="max-w-5xl mx-auto mb-14">
-              <div className="food_container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                {drinks.map((item, index) => (
-                  <FoodCard key={index} item={item} />
-                ))}
-              </div>
-            </div>
+            <Swiper
+              pagination={pagination}
+              modules={[Pagination]}
+              className="mySwiper"
+            >
+              {drinksPage.map((index) => (
+                <SwiperSlide key={index}>
+                  <div className="max-w-5xl mx-auto mb-14">
+                    <div className="food_container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                      {drinks
+                        .slice(index * 6, (index + 1) * 6)
+                        .map((item, index) => (
+                          <FoodCard key={index} item={item} />
+                        ))}
+                    </div>
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
           </TabPanel>
 
           <TabPanel>
-            <div className="max-w-5xl mx-auto mb-14">
-              <div className="food_container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                {offeredFood.map((item, index) => (
-                  <FoodCard key={index} item={item} />
-                ))}
-              </div>
-            </div>
+            <Swiper
+              pagination={pagination}
+              modules={[Pagination]}
+              className="mySwiper"
+            >
+              {offeredFoodPage.map((index) => (
+                <SwiperSlide key={index}>
+                  <div className="max-w-5xl mx-auto mb-14">
+                    <div className="food_container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                      {offeredFood
+                        .slice(index * 6, (index + 1) * 6)
+                        .map((item, index) => (
+                          <FoodCard key={index} item={item} />
+                        ))}
+                    </div>
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
           </TabPanel>
         </Tabs>
       </div>
