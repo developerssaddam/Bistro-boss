@@ -15,10 +15,10 @@ const Navbar = () => {
         <NavLink to="/dashboard">Dashboard</NavLink>
       </li>
       <li>
-        <NavLink to="/menuitem">Menu-item</NavLink>
+        <NavLink to="/menuitem">Our-Menu</NavLink>
       </li>
       <li>
-        <NavLink to="/shop">
+        <NavLink to="/shop/salad">
           shop
           <img className="w-6" src={shopImg} alt="" />
         </NavLink>
@@ -29,7 +29,7 @@ const Navbar = () => {
   const user = true;
 
   return (
-    <div className="navbar bg-gray-950 fixed z-50 opacity-75 text-white">
+    <div className="navbar bg-gray-950 fixed z-50 opacity-75 text-white max-w-[1920px] mx-auto">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">

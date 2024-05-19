@@ -4,7 +4,7 @@ import CallSection from "./CallSection/CallSection";
 import ChefRecommend from "./ChefRecommend/ChefRecommend";
 import FeaturedSection from "./FeaturedSection/FeaturedSection";
 import FoodCategory from "./FoodCategory/FoodCategory";
-import ManuList from "./MenuList/ManuList";
+import PopularFood from "./PopularFood/PopularFood";
 import Testimonial from "./Testimonial/Testimonial";
 
 const Home = () => {
@@ -13,7 +13,7 @@ const Home = () => {
       <Banner />
       <FoodCategory />
       <About />
-      <ManuList />
+      <PopularFood />
       <CallSection />
       <ChefRecommend />
       <FeaturedSection />

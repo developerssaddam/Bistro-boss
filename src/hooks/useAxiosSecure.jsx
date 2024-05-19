@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosSecure = axios.create({
-  baseURL: "./reviews.json",
+  baseURL: "http://localhost:5050",
   withCredentials: true,
 });
 
