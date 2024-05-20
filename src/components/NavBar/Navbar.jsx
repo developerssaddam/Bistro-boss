@@ -1,8 +1,35 @@
 import { Link, NavLink } from "react-router-dom";
 import shopImg from "../../assets/icon/shopicon.png";
 import "./Navbar.css";
+import { useContext } from "react";
+import { AuthContext } from "../../Providers/AuthProvider";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
+  const { user, logoutUser } = useContext(AuthContext);
+  // handleLogout user
+  const handleLoginUser = () => {
+    logoutUser()
+      .then(() => {
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Logout successfull!",
+          showConfirmButton: false,
+          timer: 2500,
+        });
+      })
+      .catch((error) => {
+        Swal.fire({
+          position: "top-end",
+          icon: "error",
+          title: `${error.message}`,
+          showConfirmButton: false,
+          timer: 2500,
+        });
+      });
+  };
+
   const links = (
     <>
       <li>
@@ -25,8 +52,6 @@ const Navbar = () => {
       </li>
     </>
   );
-
-  const user = true;
 
   return (
     <div className="navbar bg-gray-950 fixed z-50 opacity-75 text-white max-w-[1920px] mx-auto">
@@ -71,7 +96,9 @@ const Navbar = () => {
         </div>
         {user ? (
           <>
-            <button className="btn btn-xs">Logout</button>
+            <button onClick={handleLoginUser} className="btn btn-xs">
+              Logout
+            </button>
             <div className="dropdown dropdown-end">
               <div
                 tabIndex={0}
@@ -80,23 +107,21 @@ const Navbar = () => {
               >
                 <div className="w-10 rounded-full">
                   <img
-                    alt="Tailwind CSS Navbar component"
-                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                    alt="profile"
+                    src={
+                      user
+                        ? user.photoURL
+                        : "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                    }
                   />
                 </div>
               </div>
-              <ul
-                tabIndex={0}
-                className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
-              >
-                <li>
-                  <a>Logout</a>
-                </li>
-              </ul>
             </div>
           </>
         ) : (
-          <button className="btn btn-xs">Sign in</button>
+          <Link to="/login">
+            <button className="btn btn-xs">Sign in</button>
+          </Link>
         )}
       </div>
     </div>
