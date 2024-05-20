@@ -1,16 +1,62 @@
 import loginBgImg from "../../assets/others/loginbg.png";
 import loginImg from "../../assets/others/login.png";
 import { Link } from "react-router-dom";
+import "./Login.css";
+import Swal from "sweetalert2";
+
+import {
+  loadCaptchaEnginge,
+  LoadCanvasTemplate,
+  validateCaptcha,
+} from "react-simple-captcha";
+import { useEffect, useState } from "react";
 
 const Login = () => {
+  const [disabled, setDisabled] = useState(true);
+
+  useEffect(() => {
+    loadCaptchaEnginge(6);
+  }, []);
+
+  // handleCaptchaMatch
+  const handleCaptchaMatch = (e) => {
+    const userInputCaptcha = e.target.value;
+    if (validateCaptcha(userInputCaptcha)) {
+      setDisabled(false);
+      Swal.fire({
+        icon: "success",
+      });
+    } else {
+      setDisabled(true);
+      Swal.fire({
+        text: "Captcha not match!",
+        icon: "error",
+      });
+    }
+  };
+
+  // handleLoginUser
+  const handleLoginUser = (e) => {
+    e.preventDefault()
+
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
+
+    console.log(email, password);
+
+
+
+  }
+
   return (
     <div style={{ backgroundImage: `url(${loginBgImg})` }} className="py-28">
-      <div className="max-w-5xl mx-auto flex flex-col gap-5 md:flex-row py-20 lg:px-5">
-        <img className="" src={loginImg} alt="" />
+      <div className="max-w-5xl mx-auto flex flex-col items-center gap-5 md:flex-row py-20 lg:px-5 shadow-2xl">
+        <img className="max-h-[550px]" src={loginImg} alt="" />
 
-        <div className="w-full max-w-md p-8 space-y-3 rounded-xl text-gray-800">
+        <div className="w-full max-w-md p-8 space-y-3 rounded-xl text-gray-800 shadow-md">
           <h1 className="text-2xl font-bold text-center">Login</h1>
-          <form className="space-y-6">
+          <form onSubmit={handleLoginUser} className="space-y-6">
             <div className="space-y-1 text-sm">
               <label className="block text-gray-400">Email</label>
               <input
@@ -33,18 +79,14 @@ const Login = () => {
 
             <div className="space-y-1 text-sm">
               <label className="block text-gray-400">
-
+                <LoadCanvasTemplate />
               </label>
-
-              <div className="flex justify-start text-xs text-gray-400">
-                <span className="cursor-pointer">Reload Captcha</span>
-              </div>
             </div>
 
             <div className="space-y-1 text-sm">
               <input
                 type="text"
-                name="captcha"
+                onBlur={handleCaptchaMatch}
                 placeholder="Type here!"
                 className="w-full px-4 py-3 rounded-md border-gray-700 text-gray-700 focus:border-violet-400"
               />
@@ -54,6 +96,7 @@ const Login = () => {
               className="block btn text-white bg-[#DBB884] w-full p-3 text-center rounded-sm"
               type="submit"
               value="Sign in"
+              disabled={disabled}
             />
           </form>
 
@@ -99,7 +142,7 @@ const Login = () => {
           <p className="text-xs text-center sm:px-6 text-gray-400">
             Don't have an account?
             <Link
-              to="register"
+              to="/register"
               className="underline text-[#DBB884] font-semibold"
             >
               Sign up
