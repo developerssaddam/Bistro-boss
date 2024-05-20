@@ -1,12 +1,17 @@
 import { Link, NavLink } from "react-router-dom";
-import shopImg from "../../assets/icon/shopicon.png";
 import "./Navbar.css";
 import { useContext } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
 import Swal from "sweetalert2";
+import { BsCart2 } from "react-icons/bs";
+import useCarts from "../../hooks/useCarts";
 
 const Navbar = () => {
   const { user, logoutUser } = useContext(AuthContext);
+
+  // load carts data by tanstack query
+  const [carts] = useCarts();
+
   // handleLogout user
   const handleLoginUser = () => {
     logoutUser()
@@ -35,20 +40,21 @@ const Navbar = () => {
       <li>
         <NavLink to="/">Home</NavLink>
       </li>
+
       <li>
         <NavLink to="/contact">Contact</NavLink>
       </li>
+
       <li>
         <NavLink to="/dashboard">Dashboard</NavLink>
       </li>
+
       <li>
         <NavLink to="/menuitem">Our-Menu</NavLink>
       </li>
+
       <li>
-        <NavLink to="/shop/salad">
-          shop
-          <img className="w-6" src={shopImg} alt="" />
-        </NavLink>
+        <NavLink to="/shop/salad">shop</NavLink>
       </li>
     </>
   );
@@ -89,6 +95,10 @@ const Navbar = () => {
       </div>
 
       <div className="navbar-end w-2/3">
+        <div className="flex items-center gap-1 mr-1">
+          <BsCart2 className="text-[#c7b438] font-bold" />
+          <div className="badge badge-sm badge-warning">+{carts.length}</div>
+        </div>
         <div className="hidden lg:flex">
           <ul id="menu" className="menu menu-horizontal px-1">
             {links}

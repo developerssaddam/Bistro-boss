@@ -20,6 +20,7 @@ const Login = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
+  // load captcha
   useEffect(() => {
     loadCaptchaEnginge(6);
   }, []);
