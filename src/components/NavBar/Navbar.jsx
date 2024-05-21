@@ -46,10 +46,6 @@ const Navbar = () => {
       </li>
 
       <li>
-        <NavLink to="/dashboard">Dashboard</NavLink>
-      </li>
-
-      <li>
         <NavLink to="/menuitem">Our-Menu</NavLink>
       </li>
 
@@ -95,10 +91,13 @@ const Navbar = () => {
       </div>
 
       <div className="navbar-end w-2/3">
-        <div className="flex items-center gap-1 mr-1">
-          <BsCart2 className="text-[#c7b438] font-bold" />
-          <div className="badge badge-sm badge-warning">+{carts.length}</div>
-        </div>
+        <Link to="/dashboard/mycart">
+          <div className="flex items-center gap-1 mr-1">
+            <BsCart2 className="text-[#c7b438] font-bold" />
+            <div className="badge badge-sm badge-warning">+{carts.length}</div>
+          </div>
+        </Link>
+
         <div className="hidden lg:flex">
           <ul id="menu" className="menu menu-horizontal px-1">
             {links}
