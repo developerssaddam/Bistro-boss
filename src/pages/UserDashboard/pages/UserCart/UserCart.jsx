@@ -4,6 +4,7 @@ import useCarts from "../../../../hooks/useCarts";
 import { FaTrashAlt } from "react-icons/fa";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 const UserCart = () => {
   const axiosSecure = useAxiosSecure();
@@ -58,7 +59,18 @@ const UserCart = () => {
             <h2 className="text-2xl font-semibold uppercase">
               Total Price : $ {totalPrice}
             </h2>
-            <button className="btn btn-md bg-[#D1A054] text-white">Pay</button>
+
+            {carts.length > 0 ? (
+              <Link to="/dashboard/payment">
+                <button className="btn btn-md bg-[#D1A054] text-white">
+                  Pay
+                </button>
+              </Link>
+            ) : (
+              <button disabled className="btn btn-md bg-[#D1A054] text-white">
+                Pay
+              </button>
+            )}
           </div>
 
           <div className="overflow-x-auto">

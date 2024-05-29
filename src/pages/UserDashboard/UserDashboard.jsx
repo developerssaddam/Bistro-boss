@@ -10,8 +10,17 @@ import { TbBrandBooking } from "react-icons/tb";
 import { LuMenu } from "react-icons/lu";
 import { MdShoppingBag } from "react-icons/md";
 import { MdEmail } from "react-icons/md";
+import { ImSpoonKnife } from "react-icons/im";
+import { FaUsers } from "react-icons/fa";
+import { FaBook } from "react-icons/fa6";
+import { BiSolidUserDetail } from "react-icons/bi";
+import useAdmin from "../../hooks/useAdmin";
+import "./UserDashboard.css";
+import useCarts from "../../hooks/useCarts";
 
 const UserDashboard = () => {
+  const [carts] = useCarts();
+  const [role] = useAdmin();
   return (
     <div>
       <Helmet>
@@ -25,45 +34,110 @@ const UserDashboard = () => {
             <p className="tracking-widest">Restaurant</p>
           </div>
           <ul>
-            <li className="flex items-center gap-2 uppercase text-gray-700 mb-3">
-              <IoHome className="text-xl font-bold text-gray-900" />
-              <NavLink className="font-semibold" to="/dashboard">
-                user home
-              </NavLink>
-            </li>
-            <li className="flex items-center gap-2 uppercase text-gray-700 mb-3">
-              <FaCalendarAlt className="text-xl font-bold text-gray-900" />
-              <NavLink className="font-semibold" to="/dashboard/reservation">
-                Reservation
-              </NavLink>
-            </li>
-            <li className="flex items-center gap-2 uppercase text-gray-700 mb-3">
-              <MdOutlinePayment className="text-xl font-bold text-gray-900" />
-              <NavLink className="font-semibold" to="/dashboard/payment">
-                Payment history
-              </NavLink>
-            </li>
-            <li className="flex items-center gap-2 uppercase text-gray-700 mb-3">
-              <IoCartOutline className="text-xl font-bold text-gray-900" />
-              <NavLink className="font-semibold" to="/dashboard/mycart">
-                my Cart
-              </NavLink>
-            </li>
-            <li className="flex items-center gap-2 uppercase text-gray-700 mb-3">
-              <MdOutlineReviews className="text-xl font-bold text-gray-900" />
-              <NavLink className="font-semibold" to="/dashboard/review">
-                add review
-              </NavLink>
-            </li>
-            <li className="flex items-center gap-2 uppercase text-gray-700 mb-3">
-              <TbBrandBooking className="text-xl font-bold text-gray-900" />
-              <NavLink className="font-semibold" to="/dashboard/mybooking">
-                my booking
-              </NavLink>
-            </li>
+            {role === "admin" ? (
+              <>
+                <li className="flex items-center gap-2 uppercase text-gray-700 mb-3">
+                  <IoHome className="text-xl font-bold text-gray-900" />
+                  <NavLink className="font-semibold" to="/dashboard/admin">
+                    admin home
+                  </NavLink>
+                </li>
+
+                <li className="flex items-center gap-2 uppercase text-gray-700 mb-3">
+                  <ImSpoonKnife className="text-xl font-bold text-gray-900" />
+                  <NavLink
+                    className="font-semibold"
+                    to="/dashboard/admin/additem"
+                  >
+                    Add items
+                  </NavLink>
+                </li>
+
+                <li className="flex items-center gap-2 uppercase text-gray-700 mb-3">
+                  <BiSolidUserDetail className="text-xl font-bold text-gray-900" />
+                  <NavLink
+                    className="font-semibold"
+                    to="/dashboard/admin/manageItems"
+                  >
+                    Manage items
+                  </NavLink>
+                </li>
+
+                <li className="flex items-center gap-2 uppercase text-gray-700 mb-3">
+                  <FaBook className="text-xl font-bold text-gray-900" />
+                  <NavLink
+                    className="font-semibold"
+                    to="/dashboard/admin/manageBooking"
+                  >
+                    Manage bookings
+                  </NavLink>
+                </li>
+
+                <li className="flex items-center gap-2 uppercase text-gray-700 mb-3">
+                  <FaUsers className="text-xl font-bold text-gray-900" />
+                  <NavLink
+                    className="font-semibold"
+                    to="/dashboard/admin/allusers"
+                  >
+                    all users
+                  </NavLink>
+                </li>
+              </>
+            ) : (
+              <>
+                <li className="flex items-center gap-2 uppercase text-gray-700 mb-3">
+                  <IoHome className="text-xl font-bold text-gray-900" />
+                  <NavLink className="font-semibold" to="/dashboard">
+                    user home
+                  </NavLink>
+                </li>
+
+                <li className="flex items-center gap-2 uppercase text-gray-700 mb-3">
+                  <FaCalendarAlt className="text-xl font-bold text-gray-900" />
+                  <NavLink
+                    className="font-semibold"
+                    to="/dashboard/reservation"
+                  >
+                    Reservation
+                  </NavLink>
+                </li>
+
+                <li className="flex items-center gap-2 uppercase text-gray-700 mb-3">
+                  <MdOutlinePayment className="text-xl font-bold text-gray-900" />
+                  <NavLink
+                    className="font-semibold"
+                    to="/dashboard/payment/history"
+                  >
+                    Payment history
+                  </NavLink>
+                </li>
+
+                <li className="flex items-center gap-2 uppercase text-gray-700 mb-3">
+                  <IoCartOutline className="text-xl font-bold text-gray-900" />
+                  <NavLink className="font-semibold" to="/dashboard/mycart">
+                    my Cart ({carts.length})
+                  </NavLink>
+                </li>
+
+                <li className="flex items-center gap-2 uppercase text-gray-700 mb-3">
+                  <MdOutlineReviews className="text-xl font-bold text-gray-900" />
+                  <NavLink className="font-semibold" to="/dashboard/review">
+                    add review
+                  </NavLink>
+                </li>
+
+                <li className="flex items-center gap-2 uppercase text-gray-700 mb-3">
+                  <TbBrandBooking className="text-xl font-bold text-gray-900" />
+                  <NavLink className="font-semibold" to="/dashboard/mybooking">
+                    my booking
+                  </NavLink>
+                </li>
+              </>
+            )}
           </ul>
           <div className="divider"></div>
 
+          {/* common Menu */}
           <ul>
             <li className="flex items-center gap-2 uppercase text-gray-700 mb-3">
               <IoHome className="text-xl font-bold text-gray-900" />

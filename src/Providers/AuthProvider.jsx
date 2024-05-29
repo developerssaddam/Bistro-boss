@@ -9,12 +9,14 @@ import {
 } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import auth from "../firebase/firebase.config";
+import useAxiosPublic from "../hooks/useAxiosPublic";
 
 export const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const axiosPublic = useAxiosPublic();
 
   // Social login providers
   const googleProvider = new GoogleAuthProvider();
@@ -59,6 +61,19 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user);
+
+      // Create accesstoken for login user.
+      if (user) {
+        const userEmail = { email: user.email };
+        axiosPublic.post("/users/jwt", userEmail).then((res) => {
+          if (res.data.token) {
+            localStorage.setItem("accessToken", res.data.token);
+          }
+        });
+      } else {
+        localStorage.removeItem("accessToken");
+      }
+
       setLoading(false);
     });
 

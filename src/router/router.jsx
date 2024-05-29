@@ -13,6 +13,15 @@ import UserReservation from "../pages/UserDashboard/pages/UserReservation/UserRe
 import PaymentHistory from "../pages/UserDashboard/pages/PaymentHistory/PaymentHistory";
 import UserReview from "../pages/UserDashboard/pages/UserReview/UserReview";
 import UserBooking from "../pages/UserDashboard/pages/UserBooking/UserBooking";
+import PrivateRoute from "./PrivateRoute";
+import AdminHome from "../pages/UserDashboard/adminPages/AdminHome/AdminHome";
+import AdminAddItem from "../pages/UserDashboard/adminPages/AdminAddItem/AdminAddItem";
+import ManageBooking from "../pages/UserDashboard/adminPages/ManageBooking/ManageBooking";
+import AllUsers from "../pages/UserDashboard/adminPages/AllUsers/AllUsers";
+import AdminRoute from "./AdminRoute";
+import ManageItems from "../pages/UserDashboard/adminPages/ManageItems/ManageItems";
+import EditMenuItem from "../pages/UserDashboard/adminPages/EditMenuItem/EditMenuItem";
+import Payment from "../pages/UserDashboard/Payment/Payment";
 
 const router = createBrowserRouter([
   {
@@ -53,31 +62,84 @@ const router = createBrowserRouter([
 
   {
     path: "/dashboard",
-    element: <UserDashboard></UserDashboard>,
+    element: (
+      <PrivateRoute>
+        <UserDashboard></UserDashboard>
+      </PrivateRoute>
+    ),
     children: [
       {
         path: "/dashboard",
         element: <UserHome />,
       },
+
       {
         path: "/dashboard/reservation",
         element: <UserReservation />,
       },
+
       {
-        path: "/dashboard/payment",
+        path: "/dashboard/payment/history",
         element: <PaymentHistory />,
       },
+
       {
         path: "/dashboard/mycart",
         element: <UserCart />,
       },
+
       {
         path: "/dashboard/review",
         element: <UserReview />,
       },
+
       {
         path: "/dashboard/mybooking",
         element: <UserBooking />,
+      },
+
+      {
+        path: "/dashboard/payment",
+        element: <Payment />,
+      },
+
+      // AdminRoutes
+      {
+        path: "/dashboard/admin",
+        element: <AdminHome />,
+      },
+
+      {
+        path: "/dashboard/admin/additem",
+        element: (
+          <AdminRoute>
+            <AdminAddItem />
+          </AdminRoute>
+        ),
+      },
+
+      {
+        path: "/dashboard/admin/manageItems",
+        element: <ManageItems />,
+      },
+
+      {
+        path: "/dashboard/admin/manageItems/edit/:id",
+        element: <EditMenuItem />,
+      },
+
+      {
+        path: "/dashboard/admin/manageBooking",
+        element: <ManageBooking />,
+      },
+
+      {
+        path: "/dashboard/admin/allusers",
+        element: (
+          <AdminRoute>
+            <AllUsers />
+          </AdminRoute>
+        ),
       },
     ],
   },

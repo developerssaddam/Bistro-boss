@@ -17,14 +17,6 @@ const FoodCard = ({ item }) => {
 
   // handleAddToCart
   const handleAddToCart = () => {
-    const newCard = {
-      email: user.email,
-      menuId: _id,
-      name,
-      image,
-      price,
-    };
-
     if (!user) {
       Swal.fire({
         title: "Your are not logged in user!",
@@ -36,10 +28,18 @@ const FoodCard = ({ item }) => {
         confirmButtonText: "Yes, login now!",
       }).then((result) => {
         if (result.isConfirmed) {
-          navigate("/login", { state: location.pathname });
+          return navigate("/login", { state: location.pathname });
         }
       });
     } else {
+      const newCard = {
+        email: user.email,
+        menuId: _id,
+        name,
+        image,
+        price,
+      };
+
       axiosSecure.post("/carts", newCard).then((res) => {
         if (res.data.acknowledged) {
           Swal.fire({
